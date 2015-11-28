@@ -15,7 +15,7 @@ public class BFS2 {
 			  			  {6,7,0}};
         
         Game game = new Game(new State(start), new State(end));
-        game.solve();
+        game.BFS_solve();
         
 	}
 
@@ -54,7 +54,7 @@ class Game{
 	State end;
 	
 	
-	public void solve(){
+	public void BFS_solve(){
 		
 	}
 }
