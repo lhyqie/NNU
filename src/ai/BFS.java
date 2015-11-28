@@ -6,7 +6,7 @@ import java.util.Queue;
 
 public class BFS {
 
-    static Queue<int[][]>pq = new LinkedList<int[][]>();
+    static Queue<int[][]> pq = new LinkedList<int[][]>();
     static HashSet<String> states = new HashSet<String>();
     
 	static boolean is_posit(int[][] a)
@@ -33,9 +33,10 @@ public class BFS {
         }
         return true;
     }
-    static int[] find_zero(int[][]a)
+	
+    static int[] find_zero(int[][]a) throws Exception
     {
-    	int cindex = 0, rindex = 0;
+    	int cindex = -1, rindex = -1;   
         for (int i = 0; i < 3; i++)
         {
             for (int j = 0; j < 3; j++) {
@@ -49,16 +50,20 @@ public class BFS {
                // System.out.printLine(a[i][j]);
             }
         }
+        if(cindex == -1 && rindex == -1){
+        	throw new Exception("invalid input!");
+        }
         return new int[]{rindex,cindex};
     }
     
-    static String toString(int[][] a){
+    static String toString(int[][] a){  // StringBuffer is better 
     	String ret = "";
     	for(int i=0; i<3; i++)
     		for(int j=0; j<3; j++)
     			ret += a[i][j];
     	return ret;
     }
+    
     /*static char[] tochar(int[][] a){
     	char[] ret = new char[9];
     	int t = 0;
@@ -70,7 +75,12 @@ public class BFS {
     
     static void move(int[][] a) {
         int[] r = new int[2]; 
-        r = find_zero(a);
+        try {
+			r = find_zero(a);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
         
         int[][]b = new int[3][]; 
         for (int i = 0; i < 3; i++ )
@@ -80,7 +90,7 @@ public class BFS {
         if (r[1] > 0 ){
         	b = swap(a, r[0], r[1], r[0], r[1]-1);
         	if(!states.contains(toString(b))){
-        		System.out.println("◊Û“∆°˚£∫");
+        		System.out.println("◊Û“∆£∫°˚");
         		pq.add(b);
         	}
         	states.add(toString(b));
@@ -90,7 +100,7 @@ public class BFS {
         if (r[0] > 0 ){
             b = swap(a, r[0], r[1], r[0]-1,r[1]);
             if(!states.contains(toString(b))){
-            	System.out.println("…œ“∆£∫");
+            	System.out.println("…œ“∆£∫°¸");
         		pq.add(b);
             }
         	states.add(toString(b));
@@ -100,7 +110,7 @@ public class BFS {
         if (r[1] < 2 ){
             b = swap(a, r[0], r[1], r[0],r[1]+1);
             if(!states.contains(toString(b))){
-            	System.out.println("”““∆°˙£∫");
+            	System.out.println("”““∆£∫°˙");
         		pq.add(b);
             }
         	states.add(toString(b));
@@ -110,7 +120,7 @@ public class BFS {
         if (r[0] < 2 ){
         	b = swap(a, r[0], r[1], r[0]+1,r[1]);
         	if(!states.contains(toString(b))){
-            	System.out.println("œ¬“∆°˙£∫");
+            	System.out.println("œ¬“∆£∫°˝");
         		pq.add(b);
         	}
         	states.add(toString(b));
@@ -159,18 +169,24 @@ public class BFS {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		int[][]a = new int[3][];
-        for (int i = 0; i < 3; i++ )
-            a[i] = new int[3];
-        a[0][0] = 1;
-        a[0][1] = 5;
-        a[0][2] = 2;
-        a[1][0] = 4;
-        a[1][1] = 0;
-        a[1][2] = 3;
-        a[2][0] = 6;
-        a[2][1] = 7;
-        a[2][2] = 8;
+//		int[][] a = 
+//				new int[3][];
+//        for (int i = 0; i < 3; i++ )
+//            a[i] = new int[3];
+//        a[0][0] = 1;
+//        a[0][1] = 5;
+//        a[0][2] = 2;
+//        a[1][0] = 4;
+//        a[1][1] = 0;
+//        a[1][2] = 3;
+//        a[2][0] = 6;
+//        a[2][1] = 7;
+//        a[2][2] = 8;
+        
+        int [][] a = {{1,5,2},
+        			  {4,0,3},
+        			  {6,7,8}};
+        
         /*a[0][0] = 1;
         a[0][1] = 2;
         a[0][2] = 3;
@@ -210,11 +226,12 @@ public class BFS {
         /*String s = "12345";
         states.add(s);*/
         
-        int[][]b = new int[3][];
-        for (int i = 0; i < 3; i++ )
-            b[i] = new int[3];
-        pq.add(a);
-        b = a;
+//        int[][]b = new int[3][];
+//        for (int i = 0; i < 3; i++ )
+//            b[i] = new int[3];
+//        pq.add(a);
+        
+        int [][] b = a;
         while(!is_posit(b)){
         	if(!pq.isEmpty()){
         		b = pq.poll();
